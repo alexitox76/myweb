@@ -19,12 +19,14 @@ pipeline{
         }
 
         stage("Deploy-dev"){
-            sshagent(['fedoraserver1']) {
-                sh """
-                    scp -o StrictHostKeyChecking=no target/myweb.war jenkins@192.168.15.130:/opt/tomcat/webapps/ 
-                    ssh jenkins@192.168.15.130 /opt/tomcat/bin/shutdown.sh
-                    ssh jenkins@192.168.15.130 /opt/tomcat/bin/startup.sh
-                """
+            steps{
+                sshagent(['fedoraserver1']) {
+                    sh """
+                        scp -o StrictHostKeyChecking=no target/myweb.war jenkins@192.168.15.130:/opt/tomcat/webapps/ 
+                        ssh jenkins@192.168.15.130 /opt/tomcat/bin/shutdown.sh
+                        ssh jenkins@192.168.15.130 /opt/tomcat/bin/startup.sh
+                    """
+                }    
             }
         }
     }
