@@ -9,6 +9,7 @@ pipeline{
             steps{
                 git credentialsId: 'github', url: 'https://github.com/alexitox76/myweb'
             }
+        }
         
         stage("Maven Build"){
             steps{
